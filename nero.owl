@@ -46,12 +46,6 @@
     
 
 
-    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ObjectProperty1 -->
-
-    <owl:ObjectProperty rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ObjectProperty1"/>
-    
-
-
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#amidates -->
 
     <owl:ObjectProperty rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#amidates"/>
@@ -137,6 +131,12 @@
         <owl:inverseOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#amidates"/>
         <rdfs:subPropertyOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#isModifiedBy"/>
     </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#isAnnotationOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#isAnnotationOf"/>
     
 
 
@@ -264,6 +264,53 @@
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasEndCharacter -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasEndCharacter">
+        <rdfs:domain rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnnotationInText"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasOffset"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasOffset -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasOffset"/>
+    
+
+
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasStartCharacter -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasStartCharacter">
+        <rdfs:domain rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnnotationInText"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasOffset"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasTrustLevel -->
+
+    <owl:DatatypeProperty rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasTrustLevel">
+        <rdfs:comment>the trust one has in the automated annotation from a text mining point of view</rdfs:comment>
+        <rdfs:domain rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnnotationInText"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
     // Classes
     //
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -275,6 +322,7 @@
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AbstractEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AbstractEntity">
+        <rdfs:label>Abstract text entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TextEntity"/>
     </owl:Class>
     
@@ -283,7 +331,7 @@
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AminoAcidEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AminoAcidEntity">
-        <rdfs:label>Amino acid text entity</rdfs:label>
+        <rdfs:label>Amino acid named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#SmallMoleculeEntity"/>
         <rdfs:comment>A kind of small molecules, which is one of the 20 naturally occuring amino acids, their residues within proteins or peptides or modifications thereof</rdfs:comment>
     </owl:Class>
@@ -293,7 +341,7 @@
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AminoAcidOrPeptideEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AminoAcidOrPeptideEntity">
-        <rdfs:label>Amino acid or peptide text entity</rdfs:label>
+        <rdfs:label>Amino acid or peptide named entity</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -310,8 +358,48 @@
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnatomicalPartEntity">
         <rdfs:label>Anatomical part
-text entity</rdfs:label>
+
+
+
+
+
+
+
+named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnnotationInText -->
+
+    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnnotationInText">
+        <rdfs:label>Annotation in text</rdfs:label>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasStartCharacter"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasTrustLevel"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#isAnnotationOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TextEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasEndCharacter"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:comment>A portion of text with something said about it.</rdfs:comment>
     </owl:Class>
     
 
@@ -319,6 +407,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AtomEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AtomEntity">
+        <rdfs:label>Atom named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ChemicalEntity"/>
     </owl:Class>
     
@@ -327,6 +416,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#CellEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#CellEntity">
+        <rdfs:label>Cell named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnatomicalPartEntity"/>
     </owl:Class>
     
@@ -335,6 +425,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#CellularComponentEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#CellularComponentEntity">
+        <rdfs:label>Cellular component named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnatomicalPartEntity"/>
     </owl:Class>
     
@@ -343,6 +434,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ChemicalEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ChemicalEntity">
+        <rdfs:label>Chemical named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -351,6 +443,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#CitationEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#CitationEntity">
+        <rdfs:label>Citation named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -359,6 +452,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#DiseaseEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#DiseaseEntity">
+        <rdfs:label>Disease named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#biologicalProcessEntity"/>
     </owl:Class>
     
@@ -373,7 +467,8 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#DrugEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#DrugEntity">
-        <rdfs:label>Drug</rdfs:label>
+        <rdfs:label>Drug named entity</rdfs:label>
+        <rdfs:label>Drug text entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ChemicalEntity"/>
         <rdfs:comment>Actually a role played by a chemical in a certain context. Drugs are usually small molecules but that&#39;s not always so....</rdfs:comment>
     </owl:Class>
@@ -383,6 +478,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#DurationEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#DurationEntity">
+        <rdfs:label>Duration named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -391,6 +487,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#EnvironmentalFactorEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#EnvironmentalFactorEntity">
+        <rdfs:label>Environmental factor named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ExperimentalFactorEntity"/>
     </owl:Class>
     
@@ -399,6 +496,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ExperimentalFactorEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ExperimentalFactorEntity">
+        <rdfs:label>Experimental factor named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -407,6 +505,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#FacilityEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#FacilityEntity">
+        <rdfs:label>facility named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -415,6 +514,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#FoodEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#FoodEntity">
+        <rdfs:label>Food named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
         <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Food or drink that is not a simple substance (e.g., salt, water) or an organism name (e.g., wheat, pig, rice). Properly, this should be a role of a substance.</rdfs:comment>
     </owl:Class>
@@ -424,6 +524,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeneEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeneEntity">
+        <rdfs:label>Gene named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MoleculeEntity"/>
     </owl:Class>
     
@@ -432,6 +533,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeneOrProteinEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeneOrProteinEntity">
+        <rdfs:label>Gene or protein named entity</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -447,6 +549,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeneOrProteinGroupEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeneOrProteinGroupEntity">
+        <rdfs:label>Gene or protein group named entity</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -473,6 +576,7 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeographicalLocationEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeographicalLocationEntity">
+        <rdfs:label>Geographical location named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
         <rdfs:comment>Accommodates sites of all sorts of things - valleys, hills, countries, regions, oceans, poles, long and lat</rdfs:comment>
     </owl:Class>
@@ -482,15 +586,15 @@ text entity</rdfs:label>
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#IntellectualProductEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#IntellectualProductEntity">
+        <rdfs:label>Intellectual product named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#isOutputOf"/>
-                <owl:someValuesFrom rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MentalProcess"/>
+                <owl:someValuesFrom rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MentalProcessentity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A theory, idea, concept, hypothesis that is not linked in the text to a specific publication.
-
 
 
 
@@ -515,6 +619,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#IonEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#IonEntity">
+        <rdfs:label>Ion named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ChemicalEntity"/>
     </owl:Class>
     
@@ -523,6 +628,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#JournalEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#JournalEntity">
+        <rdfs:label>Journal named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -531,6 +637,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#LaboratoryExperimentalFactorEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#LaboratoryExperimentalFactorEntity">
+        <rdfs:label>Laboratory experimental factor named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ExperimentalFactorEntity"/>
     </owl:Class>
     
@@ -539,6 +646,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#LanguageEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#LanguageEntity">
+        <rdfs:label>Language named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -547,14 +655,16 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MeasurementEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MeasurementEntity">
+        <rdfs:label>Measurement named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
 
 
-    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalDevice -->
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalDeviceEntity -->
 
-    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalDevice">
+    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalDeviceEntity">
+        <rdfs:label>Medical device named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -563,14 +673,16 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalFindingEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalFindingEntity">
+        <rdfs:label>Medical finding named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
 
 
-    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalProcedure -->
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalProcedureEntity -->
 
-    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalProcedure">
+    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalProcedureEntity">
+        <rdfs:label>Medical procedure named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProcessEntity"/>
     </owl:Class>
     
@@ -579,11 +691,12 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalProcedureOrDeviceEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalProcedureOrDeviceEntity">
+        <rdfs:label>Medical procedure or device named entity</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalDevice"/>
-                    <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalProcedure"/>
+                    <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalDeviceEntity"/>
+                    <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MedicalProcedureEntity"/>
                 </owl:unionOf>
             </owl:Class>
         </owl:equivalentClass>
@@ -591,9 +704,10 @@ For example, a patent includes intellectual product, but foremost it is a public
     
 
 
-    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MentalProcess -->
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MentalProcessentity -->
 
-    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MentalProcess">
+    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MentalProcessentity">
+        <rdfs:label>Mental process named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProcessEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -609,6 +723,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MolecularProcessEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MolecularProcessEntity">
+        <rdfs:label>Molecular process named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProcessEntity"/>
     </owl:Class>
     
@@ -617,6 +732,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MoleculeEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MoleculeEntity">
+        <rdfs:label>Molecule named entity</rdfs:label>
         <rdfs:subClassOf>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -636,6 +752,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity">
+        <rdfs:label>Named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TextEntity"/>
     </owl:Class>
     
@@ -644,6 +761,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntityGroupEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntityGroupEntity">
+        <rdfs:label>Group of named entity text entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TextEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -659,6 +777,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NonproteinOrNucleicAcidChemicalEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NonproteinOrNucleicAcidChemicalEntity">
+        <rdfs:label>Non ucleic acid or protein molecule named entity</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -684,6 +803,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NucleicAcidEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NucleicAcidEntity">
+        <rdfs:label>Nucleic acid named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MoleculeEntity"/>
     </owl:Class>
     
@@ -692,6 +812,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#OrganismEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#OrganismEntity">
+        <rdfs:label>Organism named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -700,6 +821,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PartOfProteinEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PartOfProteinEntity">
+        <rdfs:label>Part of protein named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MoleculeEntity"/>
         <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">An oligopeptitide that is part of or maps to some protein. A peptide in its own right is a protein.</rdfs:comment>
     </owl:Class>
@@ -709,6 +831,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PersonEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PersonEntity">
+        <rdfs:label>Person named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -724,6 +847,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PersonGroupEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PersonGroupEntity">
+        <rdfs:label>Group of person named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -739,6 +863,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProcessEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProcessEntity">
+        <rdfs:label>Process named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -747,6 +872,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PronounEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PronounEntity">
+        <rdfs:label>Pronoun text entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TextEntity"/>
     </owl:Class>
     
@@ -755,6 +881,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProperNamedGeographicalLocationEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProperNamedGeographicalLocationEntity">
+        <rdfs:label>Proper  name for a geographical named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeographicalLocationEntity"/>
         <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A proper name of a geographical location.</rdfs:comment>
     </owl:Class>
@@ -764,6 +891,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProteinEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProteinEntity">
+        <rdfs:label>Protein named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MoleculeEntity"/>
         <rdfs:subClassOf>
             <owl:Class>
@@ -801,6 +929,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PublishedSourceOfInformationEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#PublishedSourceOfInformationEntity">
+        <rdfs:label>Published source of information named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
         <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string">A reference to a paper (citation), an article, manuscript, video, book, diary, note, message, report, letter, journal, etc.</rdfs:comment>
     </owl:Class>
@@ -810,6 +939,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#QuantityEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#QuantityEntity">
+        <rdfs:label>Quantity named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -818,6 +948,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#QuantityOrMeasurementEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#QuantityOrMeasurementEntity">
+        <rdfs:label>quantity or measurement named entity</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -830,9 +961,10 @@ For example, a patent includes intellectual product, but foremost it is a public
     
 
 
-    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#Relationship -->
+    <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#RelationshipEntity -->
 
-    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#Relationship">
+    <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#RelationshipEntity">
+        <rdfs:label>relationship text entity</rdfs:label>
         <rdfs:subClassOf>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -859,6 +991,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ResearchActivityEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ResearchActivityEntity">
+        <rdfs:label>Research activity named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProcessEntity"/>
     </owl:Class>
     
@@ -867,6 +1000,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#SmallMoleculeEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#SmallMoleculeEntity">
+        <rdfs:label>Small molecule named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MoleculeEntity"/>
     </owl:Class>
     
@@ -883,6 +1017,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TimePointEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TimePointEntity">
+        <rdfs:label>time point named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -891,6 +1026,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#UnitEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#UnitEntity">
+        <rdfs:label>Unit named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
     
@@ -899,6 +1035,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#UnproperNamedGeographicalLocationEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#UnproperNamedGeographicalLocationEntity">
+        <rdfs:label>Unproper named  geographical location named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#GeographicalLocationEntity"/>
     </owl:Class>
     
@@ -907,6 +1044,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#biologicalProcessEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#biologicalProcessEntity">
+        <rdfs:label>Biological process named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#ProcessEntity"/>
     </owl:Class>
     
@@ -915,6 +1053,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#bodyPartEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#bodyPartEntity">
+        <rdfs:label>Body part named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnatomicalPartEntity"/>
     </owl:Class>
     
@@ -923,6 +1062,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#chromosomeEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#chromosomeEntity">
+        <rdfs:label>Chromosome named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#CellularComponentEntity"/>
     </owl:Class>
     
@@ -931,6 +1071,7 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#timeEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#timeEntity">
+        <rdfs:label>Time named entity</rdfs:label>
         <owl:equivalentClass>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -948,35 +1089,9 @@ For example, a patent includes intellectual product, but foremost it is a public
     <!-- http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#tissueEntity -->
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#tissueEntity">
+        <rdfs:label>tissue named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnatomicalPartEntity"/>
     </owl:Class>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // General axioms
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AtomEntity"/>
-            <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#DrugEntity"/>
-            <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#IonEntity"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AtomEntity"/>
-            <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#IonEntity"/>
-            <rdf:Description rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#MoleculeEntity"/>
-        </owl:members>
-    </rdf:Description>
 </rdf:RDF>
 
 
