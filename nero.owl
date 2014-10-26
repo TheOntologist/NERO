@@ -365,6 +365,14 @@
 
 
 
+
+
+
+
+
+
+
+
 named entity</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#NamedEntity"/>
     </owl:Class>
@@ -375,6 +383,7 @@ named entity</rdfs:label>
 
     <owl:Class rdf:about="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#AnnotationInText">
         <rdfs:label>Annotation in text</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#DomainEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasStartCharacter"/>
@@ -389,16 +398,17 @@ named entity</rdfs:label>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#isAnnotationOf"/>
-                <owl:someValuesFrom rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TextEntity"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#hasEndCharacter"/>
                 <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
             </owl:Restriction>
         </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#isAnnotationOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TextEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://www.cs.man.ac.uk/~stevensr/ontology/ner.owl#TextEntity"/>
         <rdfs:comment>A portion of text with something said about it.</rdfs:comment>
     </owl:Class>
     
